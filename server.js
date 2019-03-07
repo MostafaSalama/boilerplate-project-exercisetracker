@@ -5,7 +5,11 @@ require('dotenv').config()
 const cors = require('cors')
 const mongoose = require('mongoose')
 const api = require('./routes/api') ; 
-mongoose.connect(process.env.MLAB_URI || 'mongodb://localhost/exercise-track' ).then(()=>{
+mongoose.Promise = global.Promise; 
+
+mongoose.connect(process.env.MLAB_URI || 'mongodb://localhost/exercise-track' ,{
+  useMongoClient:true
+}).then(()=>{
   console.log('connected') ; 
 })
 
