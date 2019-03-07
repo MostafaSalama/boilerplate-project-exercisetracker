@@ -43,5 +43,21 @@ router.post('/exercise/add',async (request,response)=>{
     }
     
 })
+router.get('/exercise/log',async (req,res)=>{
+    const {userId} = req.query ;
+    console.log(userId);
+    try {
+        const user = await User.findOne({ _id: userId});
+        const count = user.exercises.length ;        
+        res.json({
+            user:user.username,
+            count,
+            log:user.exercises
+        });
+    } catch (error) {
+        console.log(error);
+        res.send('error');
 
+    }
+})
 module.exports = router;
