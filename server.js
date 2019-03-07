@@ -2,10 +2,9 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 require('dotenv').config()
-
 const cors = require('cors')
-
 const mongoose = require('mongoose')
+const api = require('./routes/api') ; 
 mongoose.connect(process.env.MLAB_URI || 'mongodb://localhost/exercise-track' ).then(()=>{
   console.log('connected') ; 
 })
@@ -17,10 +16,11 @@ app.use(bodyParser.json())
 
 
 app.use(express.static('public'))
+app.use('/api', api); // api routing 
+
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/index.html')
 });
-
 
 // Not found middleware
 app.use((req, res, next) => {
